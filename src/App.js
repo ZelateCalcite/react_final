@@ -63,7 +63,7 @@ const App = () => {
             <Route exact path="/home" element={<Home/>}></Route>
             <Route exact path="/fillTable" element={<FillTable/>}></Route>
             <Route exact path="/fillTable/fill" element={<Fill/>}></Route>
-            <Route exact path="/finish" element={<Finish/>}></Route>
+            <Route exact path="/fillTable/finish" element={<Finish/>}></Route>
 
           </Routes>
         </Content>

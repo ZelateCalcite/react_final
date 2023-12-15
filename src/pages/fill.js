@@ -9,6 +9,7 @@ function Forms() {
   const [tip, setTip] = useState('');
   const [isResetModalOpen, setIsResetModalOpen] = useState(false);
   const [isBackModalOpen, setIsBackModalOpen] = useState(false);
+  const navigate = useNavigate();
   const showResetModal = () => {
     setIsResetModalOpen(true);
   };
@@ -29,7 +30,6 @@ function Forms() {
   const handleBackCancel = () => {
     setIsBackModalOpen(false);
   };
-  const navigate = useNavigate();
 
   async function onSubmitClick() {
     setTip('校验中，请稍等');
@@ -40,7 +40,7 @@ function Forms() {
         setTimeout(() => {
           setLoading(0);
           message.success('提交成功');
-          navigate('fillTable');
+          navigate('/fillTable/finish');
         }, 2000)
       })
       .catch(err => {
@@ -52,6 +52,7 @@ function Forms() {
   function onResetClick() {
     showResetModal();
   }
+
   function onBackClick() {
     showBackModal();
   }
@@ -91,7 +92,8 @@ function Forms() {
         <Button style={{marginLeft: '10px'}} onClick={onBackClick}>返回</Button>
       </div>
 
-      <Modal title="确定要重置吗？" open={isResetModalOpen} onOk={handleResetOk} onCancel={handleResetCancel} okText="确认"
+      <Modal title="确定要重置吗？" open={isResetModalOpen} onOk={handleResetOk} onCancel={handleResetCancel}
+             okText="确认"
              cancelText="取消">
         所有已填写的内容会丢失！
       </Modal>
