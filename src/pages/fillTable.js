@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Table, Divider} from 'antd';
 import {Link} from "react-router-dom";
-import { getCurrentUserUnSubmitWJData } from "../util/storage";
+import {getCurrentUserUnSubmitWJData} from "../util/storage";
 
 const convert = (timestamp) => {
   let date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -19,11 +19,11 @@ const columns = [
     render: (text, record, index) => {
       return (
         <Link to='fill' state={{id: record['id']}}
-        // to={{
-        //   pathname: 'fill/',
-        //   state:{id: record['id']}
-        // }}
-          >
+          // to={{
+          //   pathname: 'fill/',
+          //   state:{id: record['id']}
+          // }}
+        >
           {text}
         </Link>
       )

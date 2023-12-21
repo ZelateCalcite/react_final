@@ -1,8 +1,9 @@
-import { Button, Form, Input, message, Modal, Select, Spin } from "antd";
+import {Button, Form, Input, message, Modal, Select, Spin} from "antd";
 import '../css/page1.css'
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { getCurrentUserWJData,getWJData,submitWJ } from "../util/storage"
+import {useState, useEffect} from "react";
+import {useNavigate, useLocation} from "react-router-dom";
+import {getCurrentUserWJData, getWJData, submitWJ} from "../util/storage"
+
 export default function Fill() {
 
   const [form] = Form.useForm();
@@ -11,7 +12,7 @@ export default function Fill() {
   const [isResetModalOpen, setIsResetModalOpen] = useState(false);
   const [isBackModalOpen, setIsBackModalOpen] = useState(false);
 
-  const { state: { id } } = useLocation();
+  const {state: {id}} = useLocation();
 
   const navigate = useNavigate();
   const showResetModal = () => {
@@ -29,7 +30,7 @@ export default function Fill() {
   };
   const handleBackOk = () => {
     form.resetFields();
-    navigate('/fillTable');
+    navigate('/index/fillTable');
   };
   const handleBackCancel = () => {
     setIsBackModalOpen(false);
@@ -56,19 +57,19 @@ export default function Fill() {
     //   navigate('/fillTable/finish');
     // }, 2000)
     form.validateFields()
-    .then((formData) => {
-      submitWJ(id, formData); // 提交问卷并传递填写的表单数据
-      setTip('提交中，请稍等');
-      setLoading(1);
-      setTimeout(() => {
-        setLoading(0);
-        message.success('提交成功');
-        navigate('/fillTable/finish');
-      }, 2000);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((formData) => {
+        submitWJ(id, formData); // 提交问卷并传递填写的表单数据
+        setTip('提交中，请稍等');
+        setLoading(1);
+        setTimeout(() => {
+          setLoading(0);
+          message.success('提交成功');
+          navigate('/index/fillTable/finish');
+        }, 2000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async function onSubmitClick() {
@@ -80,7 +81,7 @@ export default function Fill() {
         setTimeout(() => {
           setLoading(0);
           message.success('提交成功');
-          navigate('/fillTable/finish');
+          navigate('/index/fillTable/finish');
         }, 2000)
       })
       .catch(err => {
@@ -98,15 +99,15 @@ export default function Fill() {
   }
 
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{height: '100%'}}>
       <Spin tip={tip} spinning={loading} fullscreen={true} size="large"></Spin>
       <Form form={form}
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 10 }}
-        layout="horizontal"
-        size={'small'}
-        className="form"
-        loading={true}
+            labelCol={{span: 6}}
+            wrapperCol={{span: 10}}
+            layout="horizontal"
+            size={'small'}
+            className="form"
+            loading={true}
       >
         {questions.map(question => (
           <Form.Item
@@ -119,7 +120,7 @@ export default function Fill() {
               message: '请填写此项'
             }]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
         ))}
         {/* <Form.Item name="name" label="姓名" validateTrigger="onBlur" rules={[{
@@ -142,17 +143,17 @@ export default function Fill() {
       </Form>
       <div className="buttons">
         <Button type="primary" onClick={onSubmitClick2}>提交</Button>
-        <Button danger style={{ marginLeft: '10px' }} onClick={onResetClick}>重置</Button>
-        <Button style={{ marginLeft: '10px' }} onClick={onBackClick}>返回</Button>
+        <Button danger style={{marginLeft: '10px'}} onClick={onResetClick}>重置</Button>
+        <Button style={{marginLeft: '10px'}} onClick={onBackClick}>返回</Button>
       </div>
 
       <Modal title="确定要重置吗？" open={isResetModalOpen} onOk={handleResetOk} onCancel={handleResetCancel}
-        okText="确认"
-        cancelText="取消">
+             okText="确认"
+             cancelText="取消">
         所有已填写的内容会丢失！
       </Modal>
       <Modal title="确定要返回吗？" open={isBackModalOpen} onOk={handleBackOk} onCancel={handleBackCancel} okText="确认"
-        cancelText="取消">
+             cancelText="取消">
         所有已填写的内容会丢失！
       </Modal>
     </div>
