@@ -5,7 +5,7 @@ export default function Finish() {
   const time = Date.now().toString();
   const navigate = useNavigate();
   const onClick = () => {
-    navigate('/index/fillTable')
+    navigate('/fillTable')
   }
   return (
     <Result

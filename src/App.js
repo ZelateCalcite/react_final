@@ -1,34 +1,24 @@
 import React, {useState} from 'react';
-<<<<<<< HEAD
 import {
   CarryOutOutlined, LaptopOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined,ArrowLeftOutlined,FileAddOutlined
 } from '@ant-design/icons';
 import {Layout, Menu, Button, theme, Input,message} from 'antd';
-=======
->>>>>>> 5f2fa79a1979d925318739eec1a5bec4061631f7
 import {useNavigate, Routes, Route} from 'react-router-dom'
-import {setCurrentUser} from './util/storage';
-import Index from "./pages";
 import Login from "./pages/login";
 import Home from "./pages/home";
-import FillTable from "./pages/fillTable";
 import Fill from "./pages/fill";
+import FillTable from "./pages/fillTable";
+import DoneTable from "./pages/doneTable";
 import Finish from "./pages/finish";
-<<<<<<< HEAD
 import Done from './pages/done';
 import {setWJData,setCurrentUser} from './util/storage';
 const {Header, Sider, Content} = Layout;
-=======
-import DoneTable from "./pages/doneTable";
-import Done from "./pages/done";
-
->>>>>>> 5f2fa79a1979d925318739eec1a5bec4061631f7
 const App = () => {
+  const [collapsed, setCollapsed] = useState(false);
   const [login, setLogin] = useState(false);
   const [userName, setUserName] = useState('');
   const navigate = useNavigate();
 
-<<<<<<< HEAD
   const {
     token: {colorBgContainer},
   } = theme.useToken();
@@ -64,19 +54,15 @@ const App = () => {
 
 
   const onInputChange=(e)=>{
-=======
-  const onInputChange = (e) => {
->>>>>>> 5f2fa79a1979d925318739eec1a5bec4061631f7
     console.log(e);
     setUserName(e.target.value);
   }
-
-  const loginClick = (e) => {
+  
+  const loginClick=(e)=>{
     setCurrentUser(userName);
     setLogin(true);
   }
 
-<<<<<<< HEAD
   if(login===false)
   {return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh",backgroundColor:"#eae5e3" }}>
@@ -155,21 +141,6 @@ const App = () => {
     </Layout>
   );
         }
-=======
-  return (
-    <Routes>
-      <Route path="/" element={<Login/>}></Route>
-      <Route path="/index" element={<Index/>}>
-        <Route path="home" element={<Home/>}></Route>
-        <Route path="fillTable" element={<FillTable/>}></Route>
-        <Route path="fillTable/fill" element={<Fill/>}></Route>
-        <Route path="fillTable/finish" element={<Finish/>}></Route>
-        <Route path="doneTable" element={<DoneTable/>}></Route>
-        <Route path="doneTable/done" element={<Done/>}></Route>
-      </Route>
-    </Routes>
-  )
->>>>>>> 5f2fa79a1979d925318739eec1a5bec4061631f7
 };
 
 export default App;
