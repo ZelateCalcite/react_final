@@ -74,7 +74,7 @@ function updateWJData(data) {
 // export function submitWJ(id)
 // {
 //     let t = getCurrentUserWJData() ;
-//     t.forEach(function(item,index,arr){
+//     t.forEach(function(item,index.js,arr){
 //         if (item.id === id){
 //             item.write = true;
 //         }

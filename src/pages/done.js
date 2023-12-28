@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Select, Spin } from "antd";
+import {Button, Form, Input, message, Modal, Select, Spin} from "antd";
 import '../css/page1.css'
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,7 +13,7 @@ export default function Done() {
     const [SubmitData, setSubmitData] = useState([]);//存放提交的数据
 
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
     const handleBack = () => {
       navigate('/doneTable');
