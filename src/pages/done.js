@@ -3,6 +3,7 @@ import '../css/page1.css'
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getCurrentUserSubmitWJData, getCurrentUserSubmitWJDataByID } from "../util/storage"
+import Item from "antd/es/list/Item";
 
 export default function Done() {
     const { state: { id } } = useLocation();
@@ -10,10 +11,13 @@ export default function Done() {
     const [loading, setLoading] = useState(0);
     const [tip, setTip] = useState('');
     const [SubmitData, setSubmitData] = useState([]);//存放提交的数据
-    
 
 
     const navigate = useNavigate();
+
+    const handleBack = () => {
+      navigate('/doneTable');
+    };
 
     const handleBackOk = () => {
         form.resetFields();
@@ -23,46 +27,24 @@ export default function Done() {
     useEffect(() => {
         console.log(123, id);
         const data = getCurrentUserSubmitWJDataByID(id);
-        setSubmitData(data);
+        if (data) {
+          setSubmitData(data[0].questions);  // 将问卷问题数据保存到state中
+        }
         console.log(SubmitData);
     }, []);
 
-    function checkWJData() {
-        // const data = getCurrentUserSubmitWJData(id);
-        // setSubmitData(data);
-        // console.log(SubmitData);
-
-    }
     console.log(SubmitData);
     return (
-        <div style={{ height: '100%' }}>
-            <Form form={form}
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 10 }}
-        layout="horizontal"
-        size={'small'}
-        className="form"
-        loading={true}
-      >
-        {data.map(data => (
-          <Form.Item
-            key={data.id}
-            name={data.title}
-            label={data.title}
-            validateTrigger="onBlur"
-            rules={[{
-              required: true,
-              message: '请填写此项'
-            }]}
-          >
-            <Input />
-          </Form.Item>
+      <div style={{ height: '100%', padding: '20px' }}>
+        <h1>问卷{id}填写结果</h1>
+        {SubmitData.map(data => (
+          <div key={data.id}>
+            <h2>{data.title}</h2>
+            <p>{data.answer}</p>
+          </div>
         ))}
-        
-      </Form>
-
-        </div>
-
-    )
+        <Button type="primary" onClick={handleBack}>返回</Button>
+      </div>
+    );
 
 }

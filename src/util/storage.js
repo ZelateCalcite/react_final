@@ -2,6 +2,10 @@
 const WJ_DATA_KEY = "WJDATA"
 const LOGIN_USER_KEY = "LOGIN_USER"
 
+export function setWJData(data) {
+    localStorage.setItem(WJ_DATA_KEY, JSON.stringify(data));
+}
+
 export function getWJData()
 {
     return localStorage.getItem(WJ_DATA_KEY) || "[]" ;
@@ -57,7 +61,7 @@ export function getCurrentUserSubmitWJDataByID(id)
     let t = getCurrentUserWJData() ;
     let ret = [];
     t.forEach(function(item,index,arr){
-        if (item.write === true & item.id === id)
+        if (item.write === true && item.id === id)
             ret.push(item);
     })
     return ret;

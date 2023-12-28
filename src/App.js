@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {
-  CarryOutOutlined, LaptopOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined,
+  CarryOutOutlined, LaptopOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ProfileOutlined,ArrowLeftOutlined,FileAddOutlined
 } from '@ant-design/icons';
-import {Layout, Menu, Button, theme, Input} from 'antd';
+import {Layout, Menu, Button, theme, Input,message} from 'antd';
 import {useNavigate, Routes, Route} from 'react-router-dom'
 import Login from "./pages/login";
 import Home from "./pages/home";
@@ -11,7 +11,7 @@ import FillTable from "./pages/fillTable";
 import DoneTable from "./pages/doneTable";
 import Finish from "./pages/finish";
 import Done from './pages/done';
-import {setCurrentUser} from './util/storage';
+import {setWJData,setCurrentUser} from './util/storage';
 const {Header, Sider, Content} = Layout;
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -27,9 +27,31 @@ const App = () => {
     if(e.key==='logout'){
       setLogin(false);
       setUserName('');
-    }else{
+    }
+    else if(e.key=='parse'){
+      const handleFileUpload = async (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onload = (e) => {
+          const fileContent = e.target.result;
+          const questionnaire = JSON.parse(fileContent);
+          setWJData(questionnaire); // 保存问卷数据到本地存储
+        };
+    
+        reader.readAsText(file);
+      };
+    
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = ".json";
+      fileInput.addEventListener("change", handleFileUpload);
+      fileInput.click();
+    }
+    else{
       navigate(e.key, {replace: true})}
   }
+
 
   const onInputChange=(e)=>{
     console.log(e);
@@ -42,12 +64,23 @@ const App = () => {
   }
 
   if(login===false)
-  {return(
-    <div>
-      <Input value={userName} onChange={onInputChange}/>
-      <Button onClick={loginClick}>123</Button>
+  {return (
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh",backgroundColor:"#eae5e3" }}>
+      <div>
+      <div style={{ fontSize: "37px", color: "#333631", fontFamily:"initial",textAlign:"center" }}>问卷调查系统</div>
+        <p style={{ margin:"10px 0px" }}>请输入用户名:</p>
+        <Input value={userName} onChange={onInputChange} style={{ marginBottom: 16 }} />
+        <Button onClick={() => {
+          if (userName !== "") {
+            loginClick();
+          } else {
+            message.error("请输入用户名");
+          }
+        }}>登录</Button>
+      </div>
+      
     </div>
-  )
+  );
 }
   else{
   return (
@@ -66,7 +99,9 @@ const App = () => {
           }, {
             key: 'doneTable', icon: <CarryOutOutlined/>, label: '已填问卷',
           }, {
-            key: 'logout', icon: <CarryOutOutlined/>, label: '登出',
+            key: 'parse', icon: <FileAddOutlined/>, label: '导入问卷',
+          }, {
+            key: 'logout', icon: <ArrowLeftOutlined/>, label: '登出',
           }]}
         />
       </Sider>

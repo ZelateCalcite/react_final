@@ -19,10 +19,6 @@ const columns = [
     render: (text, record, index) => {
       return (
         <Link to='fill' state={{id: record['id']}}
-        // to={{
-        //   pathname: 'fill/',
-        //   state:{id: record['id']}
-        // }}
           >
           {text}
         </Link>
@@ -52,38 +48,6 @@ export default function FillTable() {
     setData(t);
     setLoading(false);
   }, [])
-
-  // function promise() {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve([{
-  //         key: '1',
-  //         name: '问卷名称1',
-  //         deadline: convert(Date.now() + 1000 * 60 * 60 * 24 * 2),
-  //         initiator: '班长',
-  //         type: '班级事项',
-  //       },
-  //       {
-  //         key: '2',
-  //         name: '问卷名称2',
-  //         deadline: convert(Date.now() + 1000 * 60 * 60 * 24 * 7),
-  //         initiator: '团支书',
-  //         type: '团委事项',
-  //       }]);
-  //     }, 1000);
-  //   });
-  // }
-  // async function getData() {
-  //   await promise().then(e => {
-  //     let temp = [];
-  //     e.forEach(v => {
-  //       temp.push(v);
-  //     })
-  //     setData(temp);
-  //     setLoading(false);
-  //   })
-  // }
-  // getData();
   return (
     <div style={{height: '100%'}}>
       <Divider>待填问卷</Divider>
